@@ -4,14 +4,28 @@ import { createRoot } from 'react-dom/client';
 
 function Square(value){
     const [selction, setSelection] = useState(value)
-    
     return (
-    <button>{selction}</button>
+    <button>X</button>
 
 )}
+function Board(){
+return(
+    <>
+    <div>
+    <Square/> <Square/> <Square/>
+    </div>
+    <div>
+    <Square/> <Square/> <Square/>
+    </div>
+    <div>
+    <Square/> <Square/> <Square/>
+    </div>
+    </>
 
+)
+}
 
 const container = document.getElementById("root");
 const root = createRoot(container);
-root.render(<Square/>);
+root.render(<Board/>);
 // -----------------------------------------------
