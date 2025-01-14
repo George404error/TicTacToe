@@ -2,45 +2,82 @@ import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
 
 
-function Square({id, fun}){
+function Square({Value, fun}){
     
     return (
-    <button id = {id} onClick = {fun}  >" "</button>
+    <button onClick={fun}>{Value}</button>
 
 )}
 function Board(){
     const [turn, setTurn] = useState(0)
+    const [grid, setGrid] = useState(Array(9).fill(null))
     
-    function selected(id){
-        let XOrO = "x"
-        if (turn % 2 == 0){
-            XOrO = "x"
-            setTurn((turn + 1)%2) 
-        } else {
-            XOrO = "o"
-            setTurn((turn + 1)%2) 
-        }
-        
-        document.getElementById(id).textContent = XOrO;
-    console.log("hit")
-    } 
+    function calculateWinner(board){
+        //grid is a single dimension array just to keep it simple
+         // array of all the possible wins
+         const lines = [
+             [0, 1, 2],
+             [3, 4, 5],
+             [6, 7, 8],
+             [0, 3, 6],
+             [1, 4, 7],
+             [2, 5, 8],
+             [0, 4, 8],
+             [2, 4, 6],
+           ];
+           //goes over all the vitorcy conditons
+           for (let i =0; i< lines.length; i++ ){
+           //get the array place need to test for a win
+             const [a,b,c] = lines[i]
+             //grid (a) as they are all false and i change the value to x or o when in use which is what it compred 
+             if(board[a] && board[a] == board[b] && board[b] == board[c]){
+                 //true being there is a winner
+                 return true
+             }
+           }
+           //being there is no winner yet
+     return false
+         }
+
+         function updateSquare(place){
+   //bascially just ends the game
+    if(calculateWinner(grid)){
+        return
+    }
+const newGrid = [...grid]
+newGrid[place] = turn % 2 == 0? "x":"0"
+    setGrid(newGrid)
+    setTurn((turn + 1) %2)
+}
+    
 return(
     <>
-    <div>
-    <Square id = "Square1" fun={() => selected("Square1")}/> <Square id = "Square2" fun={() => selected("Square2")}/> <Square id = "Square3" fun={() => selected("Square3")}/>
-    </div>
-    <div>
-    <Square id = "Square4" fun={() => selected("Square4")}/> <Square id = "Square5" fun={() => selected("Square5")}/> <Square id = "Square6" fun={() => selected("Square6")}/>
-    </div>
-    <div>
-    <Square id = "Square7" fun={() => selected("Square7")}/> <Square id = "Square8" fun={() => selected("Square8")}/> <Square id = "Square9" fun={() => selected("Square9")}/>
-    </div>
+   <div>
+    <Square Value = {grid[0]} fun ={()=>updateSquare(0)}/>
+    <Square Value = {grid[1]} fun ={()=>updateSquare(1)}/>
+    <Square Value = {grid[2]} fun ={()=>updateSquare(2)}/>
+   </div>
+   <div>
+    <Square Value = {grid[3]} fun ={()=>updateSquare(3)}/>
+    <Square Value = {grid[4]} fun ={()=>updateSquare(4)}/>
+    <Square Value = {grid[5]} fun ={()=>updateSquare(5)}/>
+   </div>
+   <div>
+    <Square Value = {grid[6]} fun ={()=>updateSquare(6)}/>
+    <Square Value = {grid[7]} fun ={()=>updateSquare(7)}/>
+    <Square Value = {grid[8]} fun ={()=>updateSquare(8)}/>
+   </div>
     </>
 
 )
 }
+function Game(){
+return (
+    <Board/>
+)
 
+}
 const container = document.getElementById("root");
 const root = createRoot(container);
-root.render(<Board/>);
+root.render(<Game/>);
 // -----------------------------------------------
