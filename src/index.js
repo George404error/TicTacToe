@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { createRoot } from 'react-dom/client';
-
+import "./style.css"
 
 function Square({Value, fun}){
     
@@ -54,17 +54,17 @@ newGrid[place] = turn % 2 == 0? "x":"0"
 }
 return(
     <>
-   <div>
+   <div className="Row">
     <Square Value = {grid[0]} fun ={()=>updateSquare(0)}/>
     <Square Value = {grid[1]} fun ={()=>updateSquare(1)}/>
     <Square Value = {grid[2]} fun ={()=>updateSquare(2)}/>
    </div>
-   <div>
+   <div className="Row">
     <Square Value = {grid[3]} fun ={()=>updateSquare(3)}/>
     <Square Value = {grid[4]} fun ={()=>updateSquare(4)}/>
     <Square Value = {grid[5]} fun ={()=>updateSquare(5)}/>
    </div>
-   <div>
+   <div className="Row">
     <Square Value = {grid[6]} fun ={()=>updateSquare(6)}/>
     <Square Value = {grid[7]} fun ={()=>updateSquare(7)}/>
     <Square Value = {grid[8]} fun ={()=>updateSquare(8)}/>
