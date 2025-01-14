@@ -10,6 +10,7 @@ function Square({Value, fun}){
 )}
 function Board(){
     const [turn, setTurn] = useState(0)
+    //represnt the game grid
     const [grid, setGrid] = useState(Array(9).fill(null))
     
     function calculateWinner(board){
@@ -52,6 +53,8 @@ newGrid[place] = turn % 2 == 0? "x":"0"
     setTurn((turn + 1) %2)
 
 }
+ // value is grid so each button display the value they represent in the grid array, 
+    //so can chnage the array without needing to worry about updaitng the button dom.
 return(
     <>
    <div className="Row">
