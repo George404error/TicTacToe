@@ -40,16 +40,18 @@ function Board(){
          }
 
          function updateSquare(place){
-   //bascially just ends the game
-    if(calculateWinner(grid)){
+   //stops continung if game won or click on a place already done
+    if(calculateWinner(grid)|| grid[place]){
         return
     }
+    //if bascially means you cant change what someone has already done
+ 
 const newGrid = [...grid]
 newGrid[place] = turn % 2 == 0? "x":"0"
     setGrid(newGrid)
     setTurn((turn + 1) %2)
+
 }
-    
 return(
     <>
    <div>
